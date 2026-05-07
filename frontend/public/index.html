@@ -1,1 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🔥 SaaS Casino Platform</title>
 
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f0f1a;
+  color: white;
+  text-align: center;
+}
+
+/* LOGIN */
+#login {
+  margin-top: 120px;
+}
+
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background: gold;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+}
+
+/* HEADER */
+header {
+  padding: 15px;
+  background: black;
+  color: gold;
+  font-size: 20px;
+}
+
+/* DASHBOARD */
+#dashboard {
+  display: none;
+}
+
+.wallet {
+  color: #00ffcc;
+  font-size: 20px;
+  margin: 10px;
+}
+
+.grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background: #222;
+  padding: 20px;
+  width: 150px;
+  border-radius: 10px;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 22px;
+  color: lime;
+}
+
+/* ADMIN */
+#admin {
+  display: none;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="login">
+  <h1>🎰 SaaS Casino Login</h1>
+
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+
+<header>
+  🎰 Casino Dashboard
+  <span id="uname"></span>
+</header>
+
+<div class="wallet">
+💰 Balance: <span id="balance">1000</span>
+</div>
+
+<button onclick="showAdmin()">Admin Panel</button>
+
+<div class="grid">
+
+  <div class="card">
+    🎰 Slot
+    <button onclick="slot()">Play</button>
+  </div>
+
+  <div class="card">
+    🎲 Dice
+    <button onclick="dice()">Roll</button>
+  </div>
+
+  <div class="card">
+    🎡 Roulette
+    <button onclick="roulette()">Spin</button>
+  </div>
+
+</div>
+
+<div id="result">Ready 🚀</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin">
+  <h2>🧠 Admin Panel</h2>
+  <p>Users Online: 1</p>
+  <p>Total Bets: 1200</p>
+  <p>System Profit: +300</p>
+  <button onclick="hideAdmin()">Close Admin</button>
+</div>
+
+</div>
+
+<script>
+let balance = 1000;
+
+/* LOGIN */
+function login(){
+  let u = document.getElementById("user").value;
+
+  if(u){
+    document.getElementById("login").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("uname").innerText = "User: " + u;
+  }
+}
+
+/* UPDATE */
+function update(){
+  document.getElementById("balance").innerText = balance;
+}
+
+/* GAMES */
+function slot(){
+  let win = Math.random() > 0.5;
+  balance += win ? 100 : -50;
+  show(win ? "🎉 Slot Win +100" : "❌ Lose -50");
+  update();
+}
+
+function dice(){
+  let r = Math.floor(Math.random()*6)+1;
+  if(r > 3){
+    balance += 80;
+    show("🎲 " + r + " Win +80");
+  } else {
+    balance -= 40;
+    show("🎲 " + r + " Lose -40");
+  }
+  update();
+}
+
+function roulette(){
+  let n = Math.floor(Math.random()*10);
+  if(n == 7){
+    balance += 200;
+    show("🎡 Lucky 7 +200");
+  } else {
+    balance -= 70;
+    show("🎡 " + n + " Lose -70");
+  }
+  update();
+}
+
+/* RESULT */
+function show(msg){
+  document.getElementById("result").innerText = msg;
+}
+
+/* ADMIN */
+function showAdmin(){
+  document.getElementById("admin").style.display = "block";
+}
+
+function hideAdmin(){
+  document.getElementById("admin").style.display = "none";
+}
+</script>
+
+</body>
+</html>
